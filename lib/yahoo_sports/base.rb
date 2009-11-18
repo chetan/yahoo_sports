@@ -2,6 +2,12 @@
 require 'rubygems'
 require 'tzinfo'
 
+if RUBY_PLATFORM =~ /darwin/ then
+    # fix for scrapi on Mac OS X
+    require "tidy"
+    Tidy.path = "/usr/lib/libtidy.dylib" 
+end
+
 require 'net/http'
 require 'scrapi'
 require 'ostruct'
