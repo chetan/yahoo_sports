@@ -33,7 +33,8 @@ end
 class Base
 
     def self.get_homepage_games(sport, state = '')
-    
+
+        sport.downcase!
         if sport !~ /^(nba|nhl|nfl|mlb)$/ then
             raise sprintf("Invalid param for 'sport' = '%s'", sport)
         end
