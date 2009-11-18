@@ -7,47 +7,6 @@ class MLB < Base
         return super('mlb', state)
     end
     
-    def self.find_team_page(str)
-    
-        begin
-            html = YahooSports.fetchurl('http://sports.yahoo.com/mlb/teams/' + str)
-        rescue => ex
-            puts ex
-            return
-        end
-        
-        search = false
-        teams = nil
-        if /<h1 class="yspseohdln"><\/h1>/.match(html) then
-            # invalid 3 letter code was entered, find a matching team name
-            search = true
-            teams = html.scan(/<option value="\/mlb\/teams\/(.*?)">(.*?)<\/option>/)    
-            
-        elsif /<title>MLB - Teams - Yahoo! Sports<\/title>/.match(html) then
-            # invalid team name entered, see if we can find it
-            search = true
-            teams = html.scan(/<a href=\/mlb\/teams\/(.*?)>(.*?)<\/a>/)
-            
-        end
-        
-        if search then
-            # look for team name
-            q = str.downcase
-            team = teams.find { |t| 
-                t[1].downcase == q or t[1].downcase.include? q 
-            }
-            
-            return nil if not team
-            
-            # found a likely match, load their page
-            return [ team[0], YahooSports.fetchurl('http://sports.yahoo.com/mlb/teams/' + team[0]) ]
-            
-        end
-        
-        return [ str, html ]
-    
-    end
-    
     def self.get_team_stats(str)
 
         (team, html) = find_team_page(str)
@@ -55,7 +14,21 @@ class MLB < Base
             raise sprintf("Can't find team '%s'", str)
         end
         
+        info = get_team_info(html)        
+        last5, next5 = get_scores_and_schedule(html)
+        live_game = get_live_game(info.name, html)
         
+        return OpenStruct.new({:name => info.name,
+                               :standing => info.standing,
+                               :last5 => last5,
+                               :next5 => next5,
+                               :live  => live_game})
+    end
+    
+    
+    private
+    
+    def self.get_team_info(html)
         info_scraper = Scraper.define do
             
             process "h1.yspseohdln:first-child", :name => :text
@@ -64,6 +37,15 @@ class MLB < Base
             result :name, :standing
             
         end
+        
+        info = info_scraper.scrape(html)
+    end
+    
+    
+    def self.get_scores_and_schedule(html)
+
+        last5 = []
+        next5 = []
         
         games_scraper = Scraper.define do
         
@@ -75,13 +57,12 @@ class MLB < Base
             
         end
         
-        info = info_scraper.scrape(html)
-        
         games_temp = games_scraper.scrape(html)
+        
+        return [last5, next5] if games_temp.nil?
+        
         games_temp = games_temp[games_temp.length-30, games_temp.length]
         
-        last5 = []
-        next5 = []
         
         games_temp.each_index { |i|
             next if i % 3 != 0
@@ -105,14 +86,7 @@ class MLB < Base
             
         }
         
-        live_game = get_live_game(info.name, html)
-        
-        return OpenStruct.new({:name => info.name,
-                               :standing => info.standing,
-                               :last5 => last5,
-                               :next5 => next5,
-                               :live  => live_game})
-        
+        return [last5, next5]
     end
     
     def self.get_live_game(team, html)
@@ -162,6 +136,47 @@ class MLB < Base
         
         return game
         
+    end
+    
+    def self.find_team_page(str)
+    
+        begin
+            html = YahooSports.fetchurl('http://sports.yahoo.com/mlb/teams/' + str)
+        rescue => ex
+            puts ex
+            return
+        end
+        
+        search = false
+        teams = nil
+        if /<h1 class="yspseohdln"><\/h1>/.match(html) then
+            # invalid 3 letter code was entered, find a matching team name
+            search = true
+            teams = html.scan(/<option value="\/mlb\/teams\/(.*?)">(.*?)<\/option>/)    
+            
+        elsif /<title>MLB - Teams - Yahoo! Sports<\/title>/.match(html) then
+            # invalid team name entered, see if we can find it
+            search = true
+            teams = html.scan(/<a href=\/mlb\/teams\/(.*?)>(.*?)<\/a>/)
+            
+        end
+        
+        if search then
+            # look for team name
+            q = str.downcase
+            team = teams.find { |t| 
+                t[1].downcase == q or t[1].downcase.include? q 
+            }
+            
+            return nil if not team
+            
+            # found a likely match, load their page
+            return [ team[0], YahooSports.fetchurl('http://sports.yahoo.com/mlb/teams/' + team[0]) ]
+            
+        end
+        
+        return [ str, html ]
+    
     end
 
 end
