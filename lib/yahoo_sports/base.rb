@@ -11,7 +11,7 @@ module YahooSports
 
 # little helper method i wrote to retry the fetch a few times
 def self.fetchurl(url)
-    puts "FETCHING #{url}"
+    #puts "FETCHING #{url}"
     return Net::HTTP.get_response(URI.parse(URI.escape(url))).body    
 end
 
