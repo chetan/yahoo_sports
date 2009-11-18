@@ -82,6 +82,8 @@ class Base
 
         games = []
         
+        return games if games_temp.nil?
+        
         games_temp.each { |g|
         
             gm = OpenStruct.new
