@@ -1,11 +1,14 @@
 require File.dirname(__FILE__) + '/test_helper.rb'
 
-class TestYahooSports < Test::Unit::TestCase
-
-  def setup
-  end
+class YahooSports_Test < Test::Unit::TestCase
   
-  def test_truth
-    assert true
-  end
+    def test_autoload_classes
+        
+        assert YahooSports::MLB
+        assert YahooSports::NBA
+        assert YahooSports::NFL
+        assert YahooSports::NHL
+        
+    end
+    
 end
