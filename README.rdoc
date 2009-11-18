@@ -1,32 +1,41 @@
 = yahoo_sports
 
-* http://github.com/#{github_username}/#{project_name}
+* http://github.com/chetan/yahoo_sports
 
 == DESCRIPTION:
 
-FIX (describe your package)
+Ruby library for parsing stats from Yahoo! Sports pages. Currently supporting
+MLB, NBA, NFL, and NHL pages. 
 
 == FEATURES/PROBLEMS:
 
-* FIX (list of features or problems)
+* Pull previous day and current days games for each sport
+* Pull specific team information (full name, standing, game schedule)
 
 == SYNOPSIS:
 
-  FIX (code sample of usage)
+  require "yahoo_sports"
+  team = YahooSports::NHL.get_team_stats("nyr")
+  team.name # => "New York Rangers"
+  team.standing # => "11-9-1"
+  team.position # => "4th Atlantic"
+  team.last5[0].team # => "Edmonton Oilers (7-7-1)"
+  team.last5[0].status # => "W 4 - 2"
 
 == REQUIREMENTS:
 
-* FIX (list of requirements)
+* tzinfo
+* scrapi
 
 == INSTALL:
 
-* FIX (sudo gem install, anything else)
+* sudo gem install yahoo_sports
 
 == LICENSE:
 
 (The MIT License)
 
-Copyright (c) 2009 FIXME full name
+Copyright (c) 2009 Pixelcop Resarch, Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
