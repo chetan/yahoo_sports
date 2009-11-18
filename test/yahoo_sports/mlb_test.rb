@@ -7,7 +7,24 @@ class MLB_Test < Test::Unit::TestCase
     end
     
     def test_get_team_stats
-        YahooSports::MLB.get_team_stats("NYY")
+        run_test("NYY")
+    end
+    
+    def test_get_team_stats_by_name
+        run_test("yankees")
+    end
+    
+    private
+    
+    def run_test(str)
+        team = YahooSports::MLB.get_team_stats(str)
+        assert(team.name)
+        assert_equal("New York Yankees", team.name)
+        assert(team.standing)
+        assert(team.standing =~ /^\d+\-\d+$/)
+        assert(team.position)
+        assert((not team.last5.empty?), "last 5 games")
+        assert(team.next5)
     end
     
 end
