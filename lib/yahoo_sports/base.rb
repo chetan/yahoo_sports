@@ -157,7 +157,6 @@ class Base
         end
         
         info_temp = info_scraper.scrape(html)
-
         
         info = OpenStruct.new
         return info if info_temp.nil?
@@ -190,20 +189,37 @@ class Base
         games_temp = games_scraper.scrape(html)
         
         return [last5, next5] if games_temp.nil?
+                
+        bye = false # bye week support for nfl
         
         games_temp.games.each_index { |i|
             
             info = games_temp.games[i].split("\n").slice(1, 3)
-            team = games_temp.teams[i].strip
+            if info[0] == "Bye"
+                bye = true
+                team = nil
+            else
+                t = (bye ? i - 1 : i)
+                team = games_temp.teams[t].strip
+            end
+            
+            gm = OpenStruct.new
+            
+            if bye then
+                # team is in a bye week
+                gm.bye = true
+                next5 << gm
+                next
+            end
             
             date = Time.parse(info[0])
             info[1] =~ /(\([\d-]+\))/
             record = $1
             status = info[2]
             
-            gm = OpenStruct.new({:date => date,
-                                 :team => "#{team} #{record}",
-                                 :status => status})
+            gm.date = date
+            gm.team = "#{team} #{record}"
+            gm.status = status
 
             if info[1] =~ / at / then
                 gm.away = 1
@@ -311,7 +327,7 @@ class Base
         
         ret.teams.each_index { |i|
             t = ret.teams[i]
-            l = ret.links[i].strip
+            l = ret.links[i].strip.gsub(%r{/$}, "") # strip trailing slash for nfl
             t = YahooSports.strip_tags(t).strip
             
             if t == str or t.downcase.include? str then

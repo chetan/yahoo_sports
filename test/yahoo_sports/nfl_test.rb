@@ -7,7 +7,24 @@ class NFL_Test < Test::Unit::TestCase
     end
     
     def test_get_team_stats
-        YahooSports::NFL.get_team_stats("NYJ")
+        run_test("NYJ")
+    end
+    
+    def test_get_team_stats_by_name
+        run_test("jets")
+    end
+    
+    private
+    
+    def run_test(str)
+        team = YahooSports::NFL.get_team_stats(str)
+        assert(team.name)
+        assert_equal("New York Jets", team.name)
+        assert(team.standing)
+        assert(team.standing =~ /^\d+\-\d+(-\d+)?$/)
+        assert(team.position)
+        assert((not team.last5.empty?), "last 5 games")
+        assert(team.next5)
     end
     
 end
