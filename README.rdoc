@@ -29,7 +29,15 @@ MLB, NBA, NFL, and NHL pages.
 
 == INSTALL:
 
-* sudo gem install yahoo_sports
+With gemcutter:
+
+  sudo gem install yahoo_sports
+
+Without gemcutter:
+
+  git clone git://github.com/chetan/yahoo_sports.git
+  cd yahoo_sports
+  sudo rake install
 
 == LICENSE:
 
