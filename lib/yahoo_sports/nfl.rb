@@ -1,8 +1,4 @@
 
-require 'ostruct'
-require 'scrapi'
-require 'htmlentities'
-
 module YahooSports
 
 class NFL < Base

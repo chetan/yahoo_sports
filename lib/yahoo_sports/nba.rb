@@ -1,6 +1,4 @@
 
-require 'scrapi'
-
 module YahooSports
 
 class NBA < Base
