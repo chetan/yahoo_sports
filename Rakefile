@@ -11,16 +11,24 @@ Hoe.plugin :newgem
 # Generate all the Rake tasks
 # Run 'rake -T' to see list of generated tasks (from gem root directory)
 $hoe = Hoe.spec 'yahoo_sports' do
-  self.developer 'FIXME full name', 'FIXME email'
-  self.post_install_message = 'PostInstall.txt' # TODO remove if post-install message not required
-  self.rubyforge_name       = self.name # TODO this is default value
-  # self.extra_deps         = [['activesupport','>= 2.0.2']]
-
+  self.developer 'Chetan Sarva', 'chetan@pixelcop.net'
+  self.rubyforge_name       = self.name
+  self.extra_deps           = [['scrapi', '>= 1.2.0'],
+                               ['tzinfo', '>= 0.3.15']]
 end
 
-require 'newgem/tasks'
-Dir['tasks/**/*.rake'].each { |t| load t }
+#require 'newgem/tasks'
+#Dir['tasks/**/*.rake'].each { |t| load t }
 
 # TODO - want other tests/tasks run by default? Add them to the list
 # remove_task :default
 # task :default => [:spec, :features]
+
+desc "Run unit tests"
+Rake::TestTask.new("test") { |t|
+    #t.libs << "test"
+    t.ruby_opts << "-rubygems"
+    t.pattern = "test/**/*_test.rb"
+    t.verbose = false
+    t.warning = false
+}
