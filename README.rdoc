@@ -4,8 +4,8 @@
 
 == DESCRIPTION:
 
-Ruby library for parsing stats from Yahoo! Sports pages. Currently supporting
-MLB, NBA, NFL, and NHL pages. 
+Ruby library for parsing stats from Yahoo! Sports pages. Currently supports 
+MLB, NBA, NFL and NHL stats and info.
 
 == FEATURES:
 
