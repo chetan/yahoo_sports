@@ -1,7 +1,6 @@
 
-require 'rubygems'
-
 begin
+  require 'rubygems'
   require 'jeweler'
   Jeweler::Tasks.new do |gemspec|
     gemspec.name = "yahoo_sports"
