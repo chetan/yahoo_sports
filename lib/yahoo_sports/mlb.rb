@@ -163,19 +163,6 @@ class MLB < Base
         return game
         
     end
-    
-    def self.struct_to_ostruct(struct)
-        hash = {}
-        struct.each_pair { |key,val|
-            if val.kind_of? Struct then
-                val = struct_to_ostruct(val)
-            elsif val.kind_of? Array then
-                val.map! { |v| v.to_s =~ /struct/ ? struct_to_ostruct(v) : v }
-            end
-            hash[key] = val
-        }
-        return OpenStruct.new(hash)
-    end
 
 end
 
