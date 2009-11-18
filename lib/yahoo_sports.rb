@@ -3,8 +3,6 @@ $:.unshift(File.dirname(__FILE__)) unless
 
 module YahooSports
     
-    VERSION = '0.0.1'
-    
     autoload :Base, "yahoo_sports/base"
     autoload :MLB, "yahoo_sports/mlb"
     autoload :NBA, "yahoo_sports/nba"

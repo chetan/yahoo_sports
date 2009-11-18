@@ -1,23 +1,23 @@
 
 require 'rubygems'
-gem 'hoe', '>= 2.1.0'
-require 'hoe'
-require 'fileutils'
 
-Hoe.plugin :newgem
-
-# Generate all the Rake tasks
-# Run 'rake -T' to see list of generated tasks (from gem root directory)
-Hoe.spec('yahoo_sports') do |s|
-  s.version = '0.0.1'
-  s.developer('Chetan Sarva', 'chetan@pixelcop.net')
-  s.summary = s.description = "Ruby library for parsing stats from Yahoo! Sports pages"
-  s.readme_file         = 'README.rdoc'
-  s.rubyforge_name      = self.name
-  s.extra_deps          = [['scrapi', '>= 1.2.0'],
-                           ['tzinfo', '>= 0.3.15']]
+begin
+  require 'jeweler'
+  Jeweler::Tasks.new do |gemspec|
+    gemspec.name = "yahoo_sports"
+    gemspec.summary = "Ruby library for parsing stats from Yahoo! Sports pages"
+    gemspec.description = "Currently supports MLB, NBA, NFL and NHL stats and info"
+    gemspec.email = "chetan@pixelcop.net"
+    gemspec.homepage = "http://github.com/chetan/yahoo_sports"
+    gemspec.authors = ["Chetan Sarva"]
+    gemspec.add_dependency('scrapi', '>= 1.2.0')
+    gemspec.add_dependency('tzinfo', '>= 0.3.15')
+  end
+rescue LoadError
+  puts "Jeweler not available. Install it with: sudo gem install jeweler"
 end
 
+require "rake/testtask"
 desc "Run unit tests"
 Rake::TestTask.new("test") { |t|
     #t.libs << "test"
