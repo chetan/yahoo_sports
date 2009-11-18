@@ -33,7 +33,8 @@ Gem::Specification.new do |s|
      "test/yahoo_sports/nba_test.rb",
      "test/yahoo_sports/nfl_test.rb",
      "test/yahoo_sports/nhl_test.rb",
-     "test/yahoo_sports_test.rb"
+     "test/yahoo_sports_test.rb",
+     "yahoo_sports.gemspec"
   ]
   s.homepage = %q{http://github.com/chetan/yahoo_sports}
   s.rdoc_options = ["--charset=UTF-8"]
