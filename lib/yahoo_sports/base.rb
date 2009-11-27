@@ -179,7 +179,7 @@ class Base
     # Games in the last5 and next5 lists have the following keys:
     #   game.date       # date of game
     #   game.team       # full team name
-    #   game.status     # score for completed games (e.g. "L 20 - 23")
+    #   game.status     # score for completed games (e.g. "L 20 - 23") or "preview"
     #   game.away       # boolean value indicating an away game
     #
     # @param [String] sport         sport to list, can be one of ["mlb", "nba", "nfl", "nhl"]
@@ -258,13 +258,15 @@ class Base
         return [last5, next5] if games_temp.nil?
                 
         bye = false # bye week support for nfl
+        bye_added = false # help us put it in the right place (hopefully)
         
         games_temp.games.each_index { |i|
             
             info = games_temp.games[i].split("\n").slice(1, 3)
             if info[0] == "Bye"
+                # team is in a bye week
                 bye = true
-                team = nil
+                next
             else
                 t = (bye ? i - 1 : i)
                 team = games_temp.teams[t].strip
@@ -272,32 +274,35 @@ class Base
             
             gm = OpenStruct.new
             
-            if bye then
-                # team is in a bye week
-                gm.bye = true
-                next5 << gm
-                next
-            end
-            
-            date = Time.parse(info[0])
             info[1] =~ /(\([\d-]+\))/
             record = $1
             status = info[2]
             
-            gm.date = date
+            preview = (status !~ /^(W|L)/)
+            date_str = (preview ? "#{info[0]} #{status}" : info[0])
+            gm.date = Time.parse(date_str) 
+            
             gm.team = "#{team} #{record}".strip
-            gm.status = status
+            gm.status = (preview ? "preview" : status)
 
-            if info[1] =~ / at / then
-                gm.away = 1
-            else
-                gm.away = 0
-            end
+            gm.away = (info[1] =~ / at / ? true : false)
                         
-            if gm.status =~ /^(W|L)/
-                last5 << gm 
+            if preview then
+                if bye and not bye_added then
+                    gmb = OpenStruct.new
+                    gmb.bye = true
+                    next5 << gmb
+                    bye_added = true
+                end
+                next5 << gm 
             else
-                next5 << gm
+                if bye and not bye_added then
+                    gmb = OpenStruct.new
+                    gmb.bye = true
+                    last5 << gmb
+                    bye_added = true
+                end
+                last5 << gm
             end
             
         }
