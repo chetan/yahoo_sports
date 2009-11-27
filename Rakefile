@@ -26,3 +26,7 @@ Rake::TestTask.new("test") { |t|
     t.verbose = false
     t.warning = false
 }
+
+require "yard"
+YARD::Rake::YardocTask.new("docs") do |t|
+end
