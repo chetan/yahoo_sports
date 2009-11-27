@@ -3,7 +3,7 @@ module YahooSports
 
 class MLB < Base
 
-    # Get the MLB scoreboard games for the given sport. Includes recently completed,
+    # Get the MLB scoreboard games. Includes recently completed,
     # live and upcoming games.
     #
     # Source: http://sports.yahoo.com/mlb

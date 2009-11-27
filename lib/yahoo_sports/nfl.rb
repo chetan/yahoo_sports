@@ -3,7 +3,7 @@ module YahooSports
 
 class NFL < Base
 
-    # Get the NFL scoreboard games for the given sport. Includes recently completed,
+    # Get the NFL scoreboard games. Includes recently completed,
     # live and upcoming games.
     #
     # Source: http://sports.yahoo.com/nfl

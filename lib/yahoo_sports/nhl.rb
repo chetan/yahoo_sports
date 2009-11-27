@@ -3,7 +3,7 @@ module YahooSports
 
 class NHL < Base
 
-    # Get the NHL scoreboard games for the given sport. Includes recently completed,
+    # Get the NHL scoreboard games. Includes recently completed,
     # live and upcoming games.
     #
     # Source: http://sports.yahoo.com/nhl

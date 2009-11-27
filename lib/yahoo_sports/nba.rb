@@ -3,7 +3,7 @@ module YahooSports
 
 class NBA < Base
     
-    # Get the NBA scoreboard games for the given sport. Includes recently completed,
+    # Get the NBA scoreboard games. Includes recently completed,
     # live and upcoming games.
     #
     # Source: http://sports.yahoo.com/nba
