@@ -15,12 +15,29 @@ require 'htmlentities'
 
 module YahooSports
 
-# little helper method i wrote to retry the fetch a few times
+# Fetches the given URL and returns the body
+#
+# @param [String] URL
+# @return [String] contents of response body
 def self.fetchurl(url)
     #puts "FETCHING #{url}"
     return Net::HTTP.get_response(URI.parse(URI.escape(url))).body    
 end
 
+# Strip HTML tags from the given string. Also performs some common entity
+# substitutions. 
+#
+# List of entity codes:
+# * &nbsp;
+# * &amp;
+# * &quot;
+# * &lt;
+# * &gt;
+# * &ellip;
+# * &apos;
+#
+# @param [String] html text to be filtered
+# @return [String] original string with HTML tags filtered out and entities replaced
 def self.strip_tags(html)
 		
     HTMLEntities.new.decode(
@@ -39,7 +56,28 @@ end
 
 class Base
 
-    def self.get_homepage_games(sport, state = '')
+    # Get the scoreboard games for the given sport. Includes recently completed,
+    # live and upcoming games.
+    #
+    # Source: http://sports.yahoo.com/<sport>
+    # 
+    # Game struct has the following keys: 
+    #   game.date   # date of game; includes time if preview
+    #   game.team1  # visiting team
+    #   game.team2  # home team
+    #   game.score1 # team1's score, if live or final
+    #   game.score2 # team2's score, if live or final
+    #   game.state  # live, final or preview
+    #   game.tv     # TV station showing the game, if preview and available
+    #
+    # Example:
+    #   #<OpenStruct state="final", score1="34", date=Thu Nov 26 00:00:00 -0500 2009, score2="12", team1="Green Bay", team2="Detroit">
+    #        
+    #
+    # @param [String] sport         sport to list, can be one of ["mlb", "nba", "nfl", "nhl"]
+    # @param [String] state         Optionally filter for the given state ("live", "final", or "preview")
+    # @return [Array<OpenStruct>] list of games
+    def self.get_homepage_games(sport, state = "")
 
         sport.downcase!
         if sport !~ /^(nba|nhl|nfl|mlb)$/ then
@@ -94,25 +132,27 @@ class Base
         games_temp.each { |g|
         
             gm = OpenStruct.new
-            gm.status = g.status.strip if g.status
             gm.team1 = g.teams[0].strip if g.teams[0]
             gm.team2 = g.teams[1].strip if g.teams[1]
             gm.score1 = g.scores[0].strip if g.scores[0]
             gm.score2 = g.scores[1].strip if g.scores[1]
-                                 
-            if sport == 'mlb' then
-                gm.date = Time.parse(Time.new.strftime('%Y') + g.date_src[2,4])
-            else
-                gm.date = Time.parse(g.date_src[0,8])
-            end
-            
+
             if g.class_src.include? ' ' then
                 gm.state = g.class_src[ g.class_src.index(' ')+1, g.class_src.length ].strip
             else
                 gm.state = g.class_src.strip
             end
             
-            gm.extra = $1 if g.extra_src =~ /TV: (.*)/
+            gm.tv = $1 if g.extra_src =~ /TV: (.*)/
+
+            status = g.status.strip if g.status
+            time_str = (gm.state == "preview" ? " #{status}" : "")
+                                 
+            if sport == 'mlb' then
+                gm.date = Time.parse(Time.new.strftime('%Y') + g.date_src[2,4] + time_str)
+            else
+                gm.date = Time.parse(g.date_src[0,8] + time_str)
+            end
             
             next if not state.empty? and state != gm.state
             games << gm
@@ -123,6 +163,28 @@ class Base
     
     end
     
+    # Retrieves team information for the team in the given sport
+    #
+    # Source: http://sports.yahoo.com/<sport>/teams/<team>
+    #
+    # Team struct has the following keys:
+    #   team.name       # full team name
+    #   team.standing   # current standing
+    #   team.position   # position in the conference
+    #   team.last5      # previous games results
+    #   team.next5      # upcoming scheduled games
+    #   team.live       # struct describing in-progress game, if available
+    #
+    #
+    # Games in the last5 and next5 lists have the following keys:
+    #   game.date       # date of game
+    #   game.team       # full team name
+    #   game.status     # score for completed games (e.g. "L 20 - 23")
+    #   game.away       # boolean value indicating an away game
+    #
+    # @param [String] sport         sport to list, can be one of ["mlb", "nba", "nfl", "nhl"]
+    # @param [String] str           3-letter team code or partial team name
+    # @return [OpenStruct] team info
     def self.get_team_stats(sport, str)
         
         sport.downcase!
@@ -173,8 +235,7 @@ class Base
         info.position = info_temp.position        
         return info        
     end
-    
-    
+        
     def self.get_scores_and_schedule(html)
 
         last5 = []
@@ -224,7 +285,7 @@ class Base
             status = info[2]
             
             gm.date = date
-            gm.team = "#{team} #{record}"
+            gm.team = "#{team} #{record}".strip
             gm.status = status
 
             if info[1] =~ / at / then
