@@ -7,6 +7,10 @@
 Ruby library for parsing stats from Yahoo! Sports pages. Currently supports 
 MLB, NBA, NFL and NHL stats and info.
 
+== DOCUMENTATION:
+
+Documentation is available online at at <a href="http://rdoc.info/projects/chetan/yahoo_sports">rdoc.info</a>.
+
 == FEATURES:
 
 * Pull previous day and current days games for each sport
