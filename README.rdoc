@@ -9,7 +9,7 @@ MLB, NBA, NFL and NHL stats and info.
 
 == DOCUMENTATION:
 
-Documentation is available online at at <a href="http://rdoc.info/projects/chetan/yahoo_sports">rdoc.info</a>.
+Documentation is available online at at rdoc.info[http://rdoc.info/projects/chetan/yahoo_sports]
 
 == FEATURES:
 
