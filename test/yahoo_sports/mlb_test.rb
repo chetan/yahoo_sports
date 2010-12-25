@@ -23,7 +23,7 @@ class MLB_Test < Test::Unit::TestCase
         assert(team.standing)
         assert(team.standing =~ /^\d+\-\d+$/)
         assert(team.position)
-        assert((not team.last5.empty?), "last 5 games")
+        assert((not (team.last5.empty? and team.next5.empty?)), "last 5 games")
         assert(team.next5)
     end
     
