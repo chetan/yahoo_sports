@@ -4,7 +4,7 @@
 
 == DESCRIPTION:
 
-Ruby library for parsing stats from Yahoo! Sports pages. Currently supports 
+Ruby library for parsing stats from Yahoo! Sports pages. Currently supports
 MLB, NBA, NFL and NHL stats and info.
 
 == DOCUMENTATION:
@@ -33,21 +33,14 @@ Documentation is available online at at rdoc.info[http://rdoc.info/projects/chet
 
 == INSTALL:
 
-With gemcutter:
-
   sudo gem install yahoo_sports
 
-Without gemcutter:
-
-  git clone git://github.com/chetan/yahoo_sports.git
-  cd yahoo_sports
-  sudo rake install
 
 == LICENSE:
 
 (The MIT License)
 
-Copyright (c) 2009 Pixelcop Resarch, Inc.
+Copyright (c) 2011 Pixelcop Research, Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
