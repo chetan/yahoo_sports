@@ -1,4 +1,5 @@
 
+require 'rubygems'
 require 'stringio'
 require File.dirname(__FILE__) + '/../lib/yahoo_sports'
 
@@ -9,7 +10,6 @@ if RUBY_PLATFORM =~ /darwin/ then
     Tidy.path = "/usr/lib/libtidy.dylib"
 end
 
-require 'rubygems'
 require 'bundler'
 begin
   Bundler.setup(:default, :development)
