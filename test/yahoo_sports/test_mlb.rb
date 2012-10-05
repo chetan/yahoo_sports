@@ -9,16 +9,16 @@ class MLB_Test < MiniTest::Unit::TestCase
     end
 
     def test_get_team_stats
-        run_test("NYY")
+        run_tests("NYY")
     end
 
     def test_get_team_stats_by_name
-        run_test("yankees")
+        run_tests("yankees")
     end
 
     private
 
-    def run_test(str)
+    def run_tests(str)
         team = YahooSports::MLB.get_team_stats(str)
         assert(team.name)
         assert_equal("New York Yankees", team.name)
