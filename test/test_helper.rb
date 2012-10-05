@@ -18,16 +18,13 @@ rescue Bundler::BundlerError => e
   $stderr.puts "Run `bundle install` to install missing gems"
   exit e.status_code
 end
+
 require 'minitest/unit'
 require 'turn'
 require 'turn/reporter'
 require 'turn/reporters/outline_reporter'
 
-require "test/test_yahoo_sports"
-
 Turn.config.framework = :minitest
 Turn.config.format = :outline
-
-require 'turn/autorun'
 
 MiniTest::Unit.autorun
