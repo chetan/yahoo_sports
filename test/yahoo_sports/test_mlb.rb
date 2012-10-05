@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper.rb'
 
-class MLB_Test < Test::Unit::TestCase
+class MLB_Test < MiniTest::Unit::TestCase
 
     def test_get_homepage_games
         games = YahooSports::MLB.get_homepage_games

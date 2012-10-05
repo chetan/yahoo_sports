@@ -1,9 +1,9 @@
 require File.dirname(__FILE__) + '/../test_helper.rb'
 
-class YahooSports_Test < Test::Unit::TestCase
-  
+class YahooSports_Test < MiniTest::Unit::TestCase
+
     def test_get_homepage_games_sport_check
-        
+
         begin
             YahooSports::Base.get_homepage_games("MLB")
         rescue RuntimeError => e
@@ -11,7 +11,7 @@ class YahooSports_Test < Test::Unit::TestCase
                 flunk("no exception should have been raised")
             end
         end
-        
+
     end
-    
+
 end
