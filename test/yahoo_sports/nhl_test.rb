@@ -1,21 +1,23 @@
 require File.dirname(__FILE__) + '/../test_helper.rb'
 
 class NHL_Test < Test::Unit::TestCase
-  
-    def test_get_homepage_games    
-        YahooSports::NHL.get_homepage_games
+
+    def test_get_homepage_games
+        games = YahooSports::NHL.get_homepage_games
+        assert games
+        refute_empty games
     end
-    
+
     def test_get_team_stats
         run_test("NYR")
     end
-    
+
     def test_get_team_stats_by_name
         run_test("rangers")
     end
-    
+
     private
-    
+
     def run_test(str)
         team = YahooSports::NHL.get_team_stats(str)
         assert(team.name)
@@ -26,5 +28,5 @@ class NHL_Test < Test::Unit::TestCase
         assert((not (team.last5.empty? and team.next5.empty?)), "last 5 and next 5 games")
         assert(team.next5)
     end
-    
+
 end
