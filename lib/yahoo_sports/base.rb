@@ -20,7 +20,7 @@ module YahooSports
 # @param [String] URL
 # @return [String] contents of response body
 def self.fetchurl(url)
-    #puts "FETCHING #{url}"
+    # puts "FETCHING: '#{url}'"
     return Net::HTTP.get_response(URI.parse(URI.escape(url))).body
 end
 
@@ -89,7 +89,7 @@ class Base
             raise sprintf("Invalid param for 'state' = '%s'", state)
         end
 
-        html = YahooSports.fetchurl('http://sports.yahoo.com/' + sport)
+        html = YahooSports.fetchurl("http://sports.yahoo.com/#{sport}/proxy/html/scorethin")
         if not html then
             raise 'Error fetching url'
         end
@@ -124,9 +124,7 @@ class Base
         end
 
         games_temp = sports.scrape(html)
-
         games = []
-
         return games if games_temp.nil?
 
         games_temp.each { |g|
