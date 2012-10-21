@@ -4,7 +4,7 @@ MLB, NBA, NFL and NHL stats and info.
 
 [Source](http://github.com/chetan/yahoo_sports) available on github
 
-## SYNOPSIS:
+## SYNOPSIS
 
 ```ruby
 require "yahoo_sports"
@@ -16,12 +16,12 @@ team.last5[0].team # => "Edmonton Oilers (7-7-1)"
 team.last5[0].status # => "W 4 - 2"
 ```
 
-## FEATURES:
+## FEATURES
 
 * Pull previous day and current days games for each sport
 * Pull specific team information (full name, standing, game schedule)
 
-## INSTALL:
+## INSTALL
 
 ```bash
 # ruby 1.8
@@ -35,7 +35,7 @@ gem install yahoo_sports19
 
 Documentation is available online at [rdoc.info](http://rdoc.info/projects/chetan/yahoo_sports) or by running ```rake docs```
 
-== LICENSE:
+== LICENSE
 
 (The MIT License)
 
