@@ -13,7 +13,7 @@ require 'rake'
 require 'jeweler'
 
 Jeweler::Tasks.new do |gemspec|
-  gemspec.name = "yahoo_sports"
+  gemspec.name = "yahoo_sports19"
   gemspec.summary = "Ruby library for parsing stats from Yahoo! Sports pages"
   gemspec.description = "Ruby library for parsing stats from Yahoo! Sports pages. Currently supports MLB, NBA, NFL and NHL stats and info."
   gemspec.email = "chetan@pixelcop.net"

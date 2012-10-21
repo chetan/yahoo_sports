@@ -4,12 +4,12 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = "yahoo_sports"
+  s.name = "yahoo_sports19"
   s.version = "0.2.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chetan Sarva"]
-  s.date = "2012-10-05"
+  s.date = "2012-10-21"
   s.description = "Ruby library for parsing stats from Yahoo! Sports pages. Currently supports MLB, NBA, NFL and NHL stats and info."
   s.email = "chetan@pixelcop.net"
   s.extra_rdoc_files = [
@@ -47,8 +47,7 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<tidy>, [">= 0"])
-      s.add_runtime_dependency(%q<scrapi>, ["~> 1.2.0"])
+      s.add_runtime_dependency(%q<scrapi>, ["~> 2.0"])
       s.add_runtime_dependency(%q<tzinfo>, ["~> 0.3.15"])
       s.add_runtime_dependency(%q<htmlentities>, [">= 0"])
       s.add_development_dependency(%q<minitest>, [">= 0"])
@@ -56,8 +55,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<yard>, [">= 0"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.8.3"])
     else
-      s.add_dependency(%q<tidy>, [">= 0"])
-      s.add_dependency(%q<scrapi>, ["~> 1.2.0"])
+      s.add_dependency(%q<scrapi>, ["~> 2.0"])
       s.add_dependency(%q<tzinfo>, ["~> 0.3.15"])
       s.add_dependency(%q<htmlentities>, [">= 0"])
       s.add_dependency(%q<minitest>, [">= 0"])
@@ -66,8 +64,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<jeweler>, ["~> 1.8.3"])
     end
   else
-    s.add_dependency(%q<tidy>, [">= 0"])
-    s.add_dependency(%q<scrapi>, ["~> 1.2.0"])
+    s.add_dependency(%q<scrapi>, ["~> 2.0"])
     s.add_dependency(%q<tzinfo>, ["~> 0.3.15"])
     s.add_dependency(%q<htmlentities>, [">= 0"])
     s.add_dependency(%q<minitest>, [">= 0"])
