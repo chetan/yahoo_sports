@@ -1,46 +1,45 @@
-= yahoo_sports
-
-* http://github.com/chetan/yahoo_sports
-
-== DESCRIPTION:
-
+# yahoo_sports
 Ruby library for parsing stats from Yahoo! Sports pages. Currently supports
 MLB, NBA, NFL and NHL stats and info.
 
-== DOCUMENTATION:
+[Source](http://github.com/chetan/yahoo_sports) available on github
 
-Documentation is available online at at rdoc.info[http://rdoc.info/projects/chetan/yahoo_sports]
+## SYNOPSIS:
 
-== FEATURES:
+```ruby
+require "yahoo_sports"
+team = YahooSports::NHL.get_team_stats("nyr")
+team.name # => "New York Rangers"
+team.standing # => "11-9-1"
+team.position # => "4th Atlantic"
+team.last5[0].team # => "Edmonton Oilers (7-7-1)"
+team.last5[0].status # => "W 4 - 2"
+```
+
+## FEATURES:
 
 * Pull previous day and current days games for each sport
 * Pull specific team information (full name, standing, game schedule)
 
-== SYNOPSIS:
+## INSTALL:
 
-  require "yahoo_sports"
-  team = YahooSports::NHL.get_team_stats("nyr")
-  team.name # => "New York Rangers"
-  team.standing # => "11-9-1"
-  team.position # => "4th Atlantic"
-  team.last5[0].team # => "Edmonton Oilers (7-7-1)"
-  team.last5[0].status # => "W 4 - 2"
+```bash
+# ruby 1.8
+gem install yahoo_sports
 
-== REQUIREMENTS:
+# ruby 1.9
+gem install yahoo_sports19
+```
 
-* tzinfo
-* scrapi
+## DOCUMENTATION
 
-== INSTALL:
-
-  sudo gem install yahoo_sports
-
+Documentation is available online at [rdoc.info](http://rdoc.info/projects/chetan/yahoo_sports) or by running ```rake docs```
 
 == LICENSE:
 
 (The MIT License)
 
-Copyright (c) 2011 Pixelcop Research, Inc.
+Copyright (c) 2012 Pixelcop Research, Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
