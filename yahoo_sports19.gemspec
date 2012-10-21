@@ -36,7 +36,7 @@ Gem::Specification.new do |s|
     "test/yahoo_sports/test_nba.rb",
     "test/yahoo_sports/test_nfl.rb",
     "test/yahoo_sports/test_nhl.rb",
-    "yahoo_sports.gemspec"
+    "yahoo_sports19.gemspec"
   ]
   s.homepage = "http://github.com/chetan/yahoo_sports"
   s.require_paths = ["lib"]
