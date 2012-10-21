@@ -2,6 +2,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     ansi (1.4.3)
+    ffi (1.1.5)
     git (1.2.5)
     htmlentities (4.3.1)
     jeweler (1.8.4)
@@ -14,9 +15,10 @@ GEM
     rake (0.9.2.2)
     rdoc (3.12)
       json (~> 1.4)
-    scrapi (1.2.0)
-      tidy (>= 1.1.0)
-    tidy (1.1.2)
+    scrapi (2.0.0)
+      tidy_ffi (>= 0.1.2)
+    tidy_ffi (0.1.4)
+      ffi (>= 0.3.5)
     turn (0.9.6)
       ansi
     tzinfo (0.3.33)
@@ -29,8 +31,7 @@ DEPENDENCIES
   htmlentities
   jeweler (~> 1.8.3)
   minitest
-  scrapi (~> 1.2.0)
-  tidy
+  scrapi (~> 2.0)
   turn
   tzinfo (~> 0.3.15)
   yard

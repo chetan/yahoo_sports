@@ -3,13 +3,6 @@ require 'rubygems'
 require 'stringio'
 require File.dirname(__FILE__) + '/../lib/yahoo_sports'
 
-# if RUBY_PLATFORM =~ /darwin/ and `which tidy` !~ %r{/opt/local} then
-if RUBY_PLATFORM =~ /darwin/ then
-    # fix for scrapi on Mac OS X
-    require "tidy"
-    Tidy.path = "/usr/lib/libtidy.dylib"
-end
-
 require 'bundler'
 begin
   Bundler.setup(:default, :development)

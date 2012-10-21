@@ -1,8 +1,7 @@
 
 source "https://rubygems.org"
 
-gem "tidy"
-gem "scrapi", "~> 1.2.0"
+gem "scrapi", "~> 2.0"
 gem "tzinfo", "~> 0.3.15"
 gem "htmlentities"
 
